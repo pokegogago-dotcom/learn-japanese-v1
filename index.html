@@ -2,47 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>TabiTalk 日本語 - 10-Day Tourist Japanese</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;700&display=swap');
     body {
       font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
-    .chat-bubble-npc::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 20px;
-      border-width: 6px 6px 0;
-      border-style: solid;
-      border-color: #ffffff transparent;
-      display: block;
-      width: 0;
-    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col">
 
   <!-- Top Navigation Bar -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-2">
         <span class="text-2xl">🗾</span>
         <div>
-          <h1 class="text-lg font-extrabold text-red-600 leading-tight">TabiTalk <span class="text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold uppercase">Japan 10-Day</span></h1>
-          <p class="text-xs text-slate-400">Survival Tourist Japanese</p>
+          <h1 class="text-base font-extrabold text-red-600 leading-tight">TabiTalk <span class="text-[10px] bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-bold uppercase">Japan 10-Day</span></h1>
+          <p class="text-[11px] text-slate-400">Survival Tourist Japanese</p>
         </div>
       </div>
       <div class="flex items-center space-x-2">
         <!-- Audio Speed Toggle -->
         <button id="speedBtn" onclick="toggleSpeed()" class="text-xs font-semibold px-2.5 py-1 bg-slate-100 border border-slate-200 rounded-full text-slate-600 flex items-center gap-1">
-          <i data-lucide="gauge" class="w-3.5 h-3.5"></i>
           <span id="speedLabel">1.0x</span>
         </button>
         <!-- Romaji Toggle -->
@@ -54,53 +40,52 @@
   </header>
 
   <!-- Main App Container -->
-  <main class="max-w-2xl mx-auto w-full flex-1 p-4 pb-24">
+  <main class="max-w-2xl mx-auto w-full flex-1 p-4 pb-32">
     
     <!-- View Switcher -->
     <div class="flex bg-slate-200 p-1 rounded-xl mb-4 text-xs font-bold">
       <button onclick="switchView('lessons')" id="tabLessons" class="flex-1 py-2 rounded-lg bg-white shadow-sm text-slate-800 transition flex justify-center items-center gap-1.5">
-        <i data-lucide="message-square" class="w-4 h-4"></i> Situations
+        💬 Situations
       </button>
       <button onclick="switchView('phrasebook')" id="tabPhrasebook" class="flex-1 py-2 rounded-lg text-slate-600 hover:text-slate-800 transition flex justify-center items-center gap-1.5">
-        <i data-lucide="book-marked" class="w-4 h-4"></i> Cheat Sheet
+        📖 Cheat Sheet
       </button>
     </div>
 
-    <!-- VIEW 1: SCENARIOS / LESSONS -->
+    <!-- VIEW 1: SCENARIOS -->
     <div id="viewLessons" class="space-y-4">
-      <!-- Welcome Hero -->
-      <div class="bg-gradient-to-r from-red-500 to-rose-600 rounded-2xl p-4 text-white shadow-lg shadow-red-200">
+      <!-- Welcome Hero Banner -->
+      <div class="bg-gradient-to-r from-red-500 to-rose-600 rounded-2xl p-4 text-white shadow-md shadow-red-200">
         <div class="flex justify-between items-start">
           <div>
-            <h2 class="font-black text-lg">Kon'nichiwa, Tourist! ⛩️</h2>
-            <p class="text-xs text-red-100 mt-1 max-w-sm">Tap any scenario to start a Falou-style simulated dialogue. Practice listening and replying out loud!</p>
+            <h2 class="font-black text-base">Kon'nichiwa, Tourist! ⛩️</h2>
+            <p class="text-xs text-red-100 mt-1 max-w-xs">Select any situation below to practice realistic conversations with instant voice audio!</p>
           </div>
-          <div class="bg-white/20 px-2.5 py-1 rounded-full text-xs font-bold" id="tripDayTracker">
-            10-Day Ready
+          <div class="bg-white/20 px-2.5 py-1 rounded-full text-[11px] font-bold">
+            10-Day Trip
           </div>
         </div>
       </div>
 
-      <!-- Scenarios Grid -->
+      <!-- Scenarios Grid Container -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="scenariosGrid">
-        <!-- Rendered by JS -->
+        <!-- Rendered instantly via JavaScript -->
       </div>
     </div>
 
-    <!-- VIEW 2: PHRASEBOOK -->
+    <!-- VIEW 2: CHEAT SHEET / PHRASEBOOK -->
     <div id="viewPhrasebook" class="hidden space-y-4">
       <div class="relative">
-        <input type="text" id="phraseSearch" oninput="filterPhrases()" placeholder="Search (e.g., toilet, water, bill, train)..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 pl-10 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
-        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5"></i>
+        <input type="text" id="phraseSearch" oninput="filterPhrases()" placeholder="Search (e.g. toilet, bill, water, ticket)..." class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-red-500" />
       </div>
       <div id="phrasesList" class="space-y-2">
-        <!-- Rendered by JS -->
+        <!-- Rendered via JavaScript -->
       </div>
     </div>
 
-    <!-- DIALOGUE RUNNER MODAL / INTERFACE -->
+    <!-- DIALOGUE MODAL -->
     <div id="dialogueModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 hidden">
-      <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom">
+      <div class="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         
         <!-- Modal Top Bar -->
         <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
@@ -108,13 +93,612 @@
             <span id="activeScenarioIcon" class="text-2xl">🍜</span>
             <div>
               <h3 id="activeScenarioTitle" class="font-bold text-slate-800 text-sm">Restaurant Ordering</h3>
-              <p id="activeStepProgress" class="text-xs text-slate-400 font-semibold">Step 1 of 4</p>
+              <p id="activeStepProgress" class="text-[11px] text-slate-400 font-semibold">Step 1 of 3</p>
             </div>
           </div>
-          <button onclick="closeDialogue()" class="p-2 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200 transition">
-            <i data-lucide="x" class="w-5 h-5"></i>
+          <button onclick="closeDialogue()" class="p-2 text-slate-400 hover:text-slate-600 rounded-full text-lg font-bold">
+            ✕
           </button>
         </div>
 
         <!-- Chat History Scroll View -->
-        <div id="chatContainer" clas
+        <div id="chatContainer" class="flex-1 overflow-y-auto p-4 space-y-4 min-h-[260px] bg-slate-50/50">
+          <!-- Chat bubbles -->
+        </div>
+
+        <!-- Interactive Interaction Zone -->
+        <div class="p-4 bg-white border-t border-slate-200" id="interactionArea">
+          <!-- Reply buttons -->
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Fast-Action Bar -->
+  <footer class="bg-white border-t border-slate-200 fixed bottom-0 left-0 right-0 py-2.5 px-4 z-30 shadow-lg">
+    <div class="max-w-2xl mx-auto flex justify-around text-center text-xs">
+      <button onclick="quickSpeak('すみません！', 'Sumimasen!', 'Excuse me!')" class="flex flex-col items-center text-slate-700 active:text-red-600">
+        <span class="font-bold text-sm">すみません</span>
+        <span class="text-[10px] text-slate-400">Sumimasen (Excuse me)</span>
+      </button>
+      <div class="w-px h-8 bg-slate-200"></div>
+      <button onclick="quickSpeak('ありがとうございます！', 'Arigatou gozaimasu!', 'Thank you!')" class="flex flex-col items-center text-slate-700 active:text-red-600">
+        <span class="font-bold text-sm">ありがとう</span>
+        <span class="text-[10px] text-slate-400">Arigatou (Thanks)</span>
+      </button>
+      <div class="w-px h-8 bg-slate-200"></div>
+      <button onclick="quickSpeak('トイレはどこですか？', 'Toire wa doko desu ka?', 'Where is the toilet?')" class="flex flex-col items-center text-slate-700 active:text-red-600">
+        <span class="font-bold text-sm">トイレどこ？</span>
+        <span class="text-[10px] text-slate-400">Where's toilet?</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed top-14 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-4 py-2 rounded-full shadow-xl z-50 pointer-events-none transition-opacity duration-200 opacity-0"></div>
+
+  <!-- CORE JAVASCRIPT -->
+  <script>
+    // 1. Data Definitions
+    const scenarios = [
+      {
+        id: "train",
+        title: "Subway & Train Station",
+        icon: "🚆",
+        desc: "Ask staff which platform and buy ticket to Tokyo or Shinjuku.",
+        steps: [
+          {
+            speaker: "Station Staff (駅員)",
+            jp: "いらっしゃいませ。どちらまでですか？",
+            romaji: "Irasshaimase. Dochira made desu ka?",
+            en: "Welcome. Where are you heading to?",
+            options: [
+              {
+                jp: "新宿駅に行きたいです。この電車で行けますか？",
+                romaji: "Shinjuku-eki ni ikitai desu. Kono densha de ikemasu ka?",
+                en: "I want to go to Shinjuku Station. Does this train go there?"
+              },
+              {
+                jp: "東京駅の切符を1枚ください。",
+                romaji: "Tōkyō-eki no kippu o ichi-mai kudasai.",
+                en: "One ticket to Tokyo Station, please."
+              }
+            ]
+          },
+          {
+            speaker: "Station Staff (駅員)",
+            jp: "はい、2番線の電車に乗ってください。",
+            romaji: "Hai, ni-ban-sen no densha ni notte kudasai.",
+            en: "Yes, please take the train from Platform 2.",
+            options: [
+              {
+                jp: "わかりました。ありがとうございます！",
+                romaji: "Wakarimashita. Arigatō gozaimasu!",
+                en: "Understood. Thank you very much!"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "restaurant",
+        title: "Restaurant & Ramen Shop",
+        icon: "🍜",
+        desc: "State party size, ask for recommendations, and request the bill.",
+        steps: [
+          {
+            speaker: "Waiter (店員)",
+            jp: "いらっしゃいませ！何名様ですか？",
+            romaji: "Irasshaimase! Nan-mei sama desu ka?",
+            en: "Welcome! How many people in your party?",
+            options: [
+              {
+                jp: "1人です。",
+                romaji: "Hitori desu.",
+                en: "Just 1 person."
+              },
+              {
+                jp: "2人です。",
+                romaji: "Futari desu.",
+                en: "2 people."
+              }
+            ]
+          },
+          {
+            speaker: "Waiter (店員)",
+            jp: "こちらへどうぞ。ご注文はお決まりですか？",
+            romaji: "Kochira e dōzo. Go-chūmon wa okimari desu ka?",
+            en: "This way please. Are you ready to order?",
+            options: [
+              {
+                jp: "すみません、おすすめは何ですか？",
+                romaji: "Sumimasen, osusume wa nan desu ka?",
+                en: "Excuse me, what do you recommend?"
+              },
+              {
+                jp: "これをお願いします。",
+                romaji: "Kore o onegai shimasu.",
+                en: "I'll have this one, please."
+              }
+            ]
+          },
+          {
+            speaker: "Waiter (店員)",
+            jp: "かしこまりました。少々お待ちください。",
+            romaji: "Kashikomarimashita. Shōshō omachi kudasai.",
+            en: "Certainly! Please wait a moment.",
+            options: [
+              {
+                jp: "お会計をお願いします。",
+                romaji: "O-kaikei o onegai shimasu.",
+                en: "Bill / Check, please."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "conbini",
+        title: "7-Eleven / Lawson (Conbini)",
+        icon: "🏪",
+        desc: "Mastering the daily questions: bag, heating food, chopsticks.",
+        steps: [
+          {
+            speaker: "Clerk (店員)",
+            jp: "いらっしゃいませ！お弁当は温めますか？",
+            romaji: "Irasshaimase! O-bentō wa atatamemasu ka?",
+            en: "Welcome! Would you like your meal heated up?",
+            options: [
+              {
+                jp: "はい、お願いします。",
+                romaji: "Hai, onegai shimasu.",
+                en: "Yes, please heat it up."
+              },
+              {
+                jp: "大丈夫です、そのままで。",
+                romaji: "Daijōbu desu, sono mama de.",
+                en: "No thanks, it is fine as is."
+              }
+            ]
+          },
+          {
+            speaker: "Clerk (店員)",
+            jp: "レジ袋はご利用ですか？",
+            romaji: "Reji-bukuro wa go-riyō desu ka?",
+            en: "Do you need a plastic shopping bag?",
+            options: [
+              {
+                jp: "はい、1枚お願いします。",
+                romaji: "Hai, ichi-mai onegai shimasu.",
+                en: "Yes, 1 bag please."
+              },
+              {
+                jp: "大丈夫です、袋持ってます。",
+                romaji: "Daijōbu desu, fukuro mottemasu.",
+                en: "I'm okay, I have my own bag."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "hotel",
+        title: "Hotel Check-in & Luggage",
+        icon: "🏨",
+        desc: "Checking in and dropping bags before 3:00 PM check-in.",
+        steps: [
+          {
+            speaker: "Front Desk (フロント)",
+            jp: "いらっしゃいませ、チェックインですか？",
+            romaji: "Irasshaimase, chekku-in desu ka?",
+            en: "Welcome, are you checking in?",
+            options: [
+              {
+                jp: "はい、予約しています。パスポートです。",
+                romaji: "Hai, yoyaku shite imasu. Pasupōto desu.",
+                en: "Yes, I have a reservation. Here is my passport."
+              },
+              {
+                jp: "チェックイン前に荷物を預かってもらえますか？",
+                romaji: "Chekku-in mae ni nimotsu o azukatte moraemasu ka?",
+                en: "Can I leave my luggage here before check-in?"
+              }
+            ]
+          },
+          {
+            speaker: "Front Desk (フロント)",
+            jp: "かしこまりました。お預かりします！",
+            romaji: "Kashikomarimashita. O-azukari shimasu!",
+            en: "Certainly! We will keep your bags safely.",
+            options: [
+              {
+                jp: "ありがとうございます。Wi-Fiのパスワードは何ですか？",
+                romaji: "Arigatō gozaimasu. Wi-Fi no pasuwādo wa nan desu ka?",
+                en: "Thank you. What is the Wi-Fi password?"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "shopping",
+        title: "Shopping & Tax Free",
+        icon: "🛍️",
+        desc: "Ask for tax free refund, try clothes on, and pay by card.",
+        steps: [
+          {
+            speaker: "Staff (店員)",
+            jp: "何かお探しですか？試着もできますよ。",
+            romaji: "Nanika osagashi desu ka? Shichaku mo dekimasu yo.",
+            en: "Looking for anything? You can try items on.",
+            options: [
+              {
+                jp: "免税（Tax-Free）はできますか？",
+                romaji: "Menzei dekimasu ka?",
+                en: "Can I do Tax-Free shopping?"
+              },
+              {
+                jp: "これの大きいサイズはありますか？",
+                romaji: "Kore no ōkii saizu wa arimasu ka?",
+                en: "Do you have this in a larger size?"
+              }
+            ]
+          },
+          {
+            speaker: "Staff (店員)",
+            jp: "はい、パスポートをお持ちでしたら免税可能です！",
+            romaji: "Hai, pasupōto o omochi deshitara menzei kanō desu!",
+            en: "Yes, if you have your passport, tax-free is available!",
+            options: [
+              {
+                jp: "クレジットカードで払えますか？",
+                romaji: "Kurejitto kādo de haraemasu ka?",
+                en: "Can I pay with credit card?"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "direction",
+        title: "Asking Directions on Street",
+        icon: "📍",
+        desc: "Finding bathrooms, stations, and convenience stores.",
+        steps: [
+          {
+            speaker: "Local (通行人)",
+            jp: "こんにちは、何か困っていますか？",
+            romaji: "Konnichiwa, nanika komatte imasu ka?",
+            en: "Hello! Are you having some trouble?",
+            options: [
+              {
+                jp: "すみません、トイレはどこですか？",
+                romaji: "Sumimasen, toire wa doko desu ka?",
+                en: "Excuse me, where is the restroom?"
+              },
+              {
+                jp: "すみません、一番近い駅はどこですか？",
+                romaji: "Sumimasen, ichiban chikai eki wa doko desu ka?",
+                en: "Excuse me, where is the nearest station?"
+              }
+            ]
+          },
+          {
+            speaker: "Local (通行人)",
+            jp: "あそこを右に曲がるとすぐありますよ！",
+            romaji: "Asoko o migi ni magaru to sugu arimasu yo!",
+            en: "Turn right over there and it is right there!",
+            options: [
+              {
+                jp: "助かりました！ありがとうございます！",
+                romaji: "Tasukarimashita! Arigatō gozaimasu!",
+                en: "That helps so much! Thank you!"
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const phrases = [
+      { jp: "すみません", romaji: "Sumimasen", en: "Excuse me / Sorry", tag: "General" },
+      { jp: "ありがとうございます", romaji: "Arigatou gozaimasu", en: "Thank you very much", tag: "General" },
+      { jp: "これをお願いします", romaji: "Kore o onegai shimasu", en: "This one please (pointing)", tag: "Food" },
+      { jp: "お会計をお願いします", romaji: "O-kaikei o onegai shimasu", en: "Check / Bill please", tag: "Food" },
+      { jp: "お水をください", romaji: "O-mizu o kudasai", en: "Water please", tag: "Food" },
+      { jp: "トイレはどこですか？", romaji: "Toire wa doko desu ka?", en: "Where is the bathroom?", tag: "Directions" },
+      { jp: "カードは使えますか？", romaji: "Kaado wa tsukaemasu ka?", en: "Can I use credit card?", tag: "Shopping" },
+      { jp: "英語のメニューはありますか？", romaji: "Eigo no menyuu wa arimasu ka?", en: "Do you have an English menu?", tag: "Food" },
+      { jp: "Suicaで払います", romaji: "Suica de haraimasu", en: "I'll pay with Suica", tag: "Travel" },
+      { jp: "写真を撮ってもらえますか？", romaji: "Shashin o totte moraemasu ka?", en: "Could you take my picture?", tag: "Tourist" },
+      { jp: "これいくらですか？", romaji: "Kore ikura desu ka?", en: "How much is this?", tag: "Shopping" },
+      { jp: "助けてください", romaji: "Tasukete kudasai", en: "Please help me!", tag: "Emergency" }
+    ];
+
+    // State Variables
+    let showRomaji = true;
+    let speechSpeed = 1.0;
+    let currentScenario = null;
+    let currentStep = 0;
+
+    // 2. Render Functions
+    function renderScenarios() {
+      const container = document.getElementById("scenariosGrid");
+      if (!container) return;
+      container.innerHTML = scenarios.map(sc => `
+        <div onclick="startDialogue('${sc.id}')" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm active:border-red-400 cursor-pointer transition flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-3xl p-2 bg-slate-50 rounded-xl">${sc.icon}</span>
+              <span class="text-[11px] font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-full">
+                Practice ▶
+              </span>
+            </div>
+            <h3 class="font-bold text-slate-800 text-sm mb-1">${sc.title}</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">${sc.desc}</p>
+          </div>
+          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+            <span>${sc.steps.length * 2} turns</span>
+            <span class="text-red-500 font-bold">Start →</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPhrases(list) {
+      const container = document.getElementById("phrasesList");
+      if (!container) return;
+      container.innerHTML = list.map(item => `
+        <div class="bg-white p-3 rounded-xl border border-slate-200 flex items-center justify-between gap-3">
+          <div class="flex-1">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-0.5 rounded">${item.tag}</span>
+              <span class="text-xs text-slate-400">${item.en}</span>
+            </div>
+            <p class="font-bold text-slate-800 text-base mt-1">${item.jp}</p>
+            <p class="text-xs text-red-500 font-medium romaji-text ${showRomaji ? '' : 'hidden'}">${item.romaji}</p>
+          </div>
+          <button onclick="playTTS('${item.jp}')" class="p-2.5 bg-red-50 text-red-600 rounded-full active:bg-red-200">
+            🔊
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function filterPhrases() {
+      const q = (document.getElementById("phraseSearch").value || '').toLowerCase();
+      const filtered = phrases.filter(p => 
+        p.en.toLowerCase().includes(q) || 
+        p.romaji.toLowerCase().includes(q) || 
+        p.jp.includes(q) ||
+        p.tag.toLowerCase().includes(q)
+      );
+      renderPhrases(filtered);
+    }
+
+    function switchView(tab) {
+      const lessonsView = document.getElementById("viewLessons");
+      const phraseView = document.getElementById("viewPhrasebook");
+      const tabL = document.getElementById("tabLessons");
+      const tabP = document.getElementById("tabPhrasebook");
+
+      if (tab === 'lessons') {
+        lessonsView.classList.remove("hidden");
+        phraseView.classList.add("hidden");
+        tabL.className = "flex-1 py-2 rounded-lg bg-white shadow-sm text-slate-800 transition flex justify-center items-center gap-1.5";
+        tabP.className = "flex-1 py-2 rounded-lg text-slate-600 transition flex justify-center items-center gap-1.5";
+      } else {
+        lessonsView.classList.add("hidden");
+        phraseView.classList.remove("hidden");
+        tabP.className = "flex-1 py-2 rounded-lg bg-white shadow-sm text-slate-800 transition flex justify-center items-center gap-1.5";
+        tabL.className = "flex-1 py-2 rounded-lg text-slate-600 transition flex justify-center items-center gap-1.5";
+      }
+    }
+
+    function toggleRomaji() {
+      showRomaji = !showRomaji;
+      document.getElementById("romajiToggle").textContent = `Romaji: ${showRomaji ? 'ON' : 'OFF'}`;
+      document.querySelectorAll(".romaji-text").forEach(el => {
+        if (showRomaji) el.classList.remove("hidden");
+        else el.classList.add("hidden");
+      });
+    }
+
+    function toggleSpeed() {
+      if (speechSpeed === 1.0) speechSpeed = 0.75;
+      else if (speechSpeed === 0.75) speechSpeed = 1.25;
+      else speechSpeed = 1.0;
+      document.getElementById("speedLabel").textContent = speechSpeed + "x";
+      showToast(`Audio speed: ${speechSpeed}x`);
+    }
+
+    // Audio Playback
+    function playTTS(text) {
+      try {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const u = new SpeechSynthesisUtterance(text);
+          u.lang = 'ja-JP';
+          u.rate = speechSpeed;
+          window.speechSynthesis.speak(u);
+        } else {
+          showToast("Audio TTS not supported on this browser.");
+        }
+      } catch (err) {
+        showToast("Audio error: " + err);
+      }
+    }
+
+    function quickSpeak(jp, romaji, en) {
+      playTTS(jp);
+      showToast(`${jp} (${romaji})`);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.style.opacity = "1";
+      setTimeout(() => { t.style.opacity = "0"; }, 2500);
+    }
+
+    // Interactive Dialogue Modal
+    function startDialogue(scenarioId) {
+      currentScenario = scenarios.find(s => s.id === scenarioId);
+      currentStep = 0;
+      
+      document.getElementById("activeScenarioTitle").textContent = currentScenario.title;
+      document.getElementById("activeScenarioIcon").textContent = currentScenario.icon;
+      document.getElementById("chatContainer").innerHTML = "";
+      document.getElementById("dialogueModal").classList.remove("hidden");
+
+      renderStep();
+    }
+
+    function closeDialogue() {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      document.getElementById("dialogueModal").classList.add("hidden");
+    }
+
+    function renderStep() {
+      const step = currentScenario.steps[currentStep];
+      const chat = document.getElementById("chatContainer");
+
+      document.getElementById("activeStepProgress").textContent = `Step ${currentStep + 1} of ${currentScenario.steps.length}`;
+
+      // NPC Chat Bubble
+      const npcBubble = document.createElement("div");
+      npcBubble.className = "flex flex-col items-start space-y-1";
+      npcBubble.innerHTML = `
+        <span class="text-[10px] font-bold text-slate-400 ml-1">${step.speaker}</span>
+        <div class="bg-white border border-slate-200 p-3.5 rounded-2xl max-w-[90%] shadow-sm text-left">
+          <p class="text-base font-bold text-slate-800">${step.jp}</p>
+          <p class="text-xs text-red-500 font-semibold romaji-text mt-0.5 ${showRomaji ? '' : 'hidden'}">${step.romaji}</p>
+          <p class="text-xs text-slate-400 mt-1">${step.en}</p>
+          <button onclick="playTTS('${step.jp}')" class="mt-2 text-xs font-bold text-slate-600 bg-slate-100 active:bg-slate-200 px-2.5 py-1 rounded-full flex items-center gap-1">
+            🔊 Listen
+          </button>
+        </div>
+      `;
+      chat.appendChild(npcBubble);
+      chat.scrollTop = chat.scrollHeight;
+
+      // Play audio automatically
+      setTimeout(() => { playTTS(step.jp); }, 300);
+
+      // User Choices
+      renderUserOptions(step.options);
+    }
+
+    function renderUserOptions(options) {
+      const area = document.getElementById("interactionArea");
+      area.innerHTML = `
+        <div class="mb-2 flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Your Turn (Tap to reply):</span>
+        </div>
+        <div class="space-y-2">
+          ${options.map((opt) => `
+            <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col justify-between">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-bold text-slate-800 text-sm">${opt.jp}</p>
+                  <p class="text-xs text-red-500 font-semibold romaji-text ${showRomaji ? '' : 'hidden'}">${opt.romaji}</p>
+                  <p class="text-xs text-slate-400">${opt.en}</p>
+                </div>
+                <button onclick="playTTS('${opt.jp}')" class="p-1.5 text-slate-400 text-sm">
+                  🔊
+                </button>
+              </div>
+              <div class="mt-2 pt-2 border-t border-slate-200 flex items-center gap-2">
+                <button onclick="submitUserReply('${opt.jp}', '${opt.romaji}', '${opt.en}')" class="flex-1 bg-red-600 active:bg-red-700 text-white font-bold text-xs py-2 rounded-lg">
+                  Say This (Select)
+                </button>
+                <button onclick="testMic('${opt.jp}')" class="px-3 py-2 bg-slate-200 active:bg-slate-300 text-slate-700 text-xs font-bold rounded-lg">
+                  🎙️ Speak
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function submitUserReply(jp, romaji, en) {
+      playTTS(jp);
+      const chat = document.getElementById("chatContainer");
+
+      const userBubble = document.createElement("div");
+      userBubble.className = "flex flex-col items-end space-y-1";
+      userBubble.innerHTML = `
+        <span class="text-[10px] font-bold text-slate-400 mr-1">You (あなた)</span>
+        <div class="bg-red-600 text-white p-3.5 rounded-2xl max-w-[85%] shadow-sm text-right">
+          <p class="text-base font-bold">${jp}</p>
+          <p class="text-xs text-red-200 font-semibold romaji-text mt-0.5 ${showRomaji ? '' : 'hidden'}">${romaji}</p>
+          <p class="text-xs text-red-100 mt-1">${en}</p>
+        </div>
+      `;
+      chat.appendChild(userBubble);
+      chat.scrollTop = chat.scrollHeight;
+
+      currentStep++;
+      if (currentStep < currentScenario.steps.length) {
+        document.getElementById("interactionArea").innerHTML = `
+          <div class="py-4 text-center">
+            <span class="text-xs font-semibold text-slate-400">Partner is speaking...</span>
+          </div>
+        `;
+        setTimeout(() => { renderStep(); }, 1200);
+      } else {
+        renderFinished();
+      }
+    }
+
+    function renderFinished() {
+      const area = document.getElementById("interactionArea");
+      area.innerHTML = `
+        <div class="text-center py-4 space-y-3">
+          <div class="text-4xl">🎉 お疲れ様でした！</div>
+          <p class="font-bold text-slate-800 text-sm">Conversation Finished!</p>
+          <p class="text-xs text-slate-500">You are ready to use this in Japan!</p>
+          <div class="flex gap-2">
+            <button onclick="startDialogue('${currentScenario.id}')" class="flex-1 py-2.5 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl">
+              Practice Again
+            </button>
+            <button onclick="closeDialogue()" class="flex-1 py-2.5 bg-red-600 text-white font-bold text-xs rounded-xl">
+              Done
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function testMic(targetJp) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        showToast("Voice recognition not supported on this mobile browser. Tap 'Say This'!");
+        return;
+      }
+      try {
+        const reco = new SpeechRecognition();
+        reco.lang = 'ja-JP';
+        showToast("🎙️ Listening... Speak Japanese now!");
+        reco.start();
+        reco.onresult = (e) => {
+          const heard = e.results[0][0].transcript;
+          showToast(`Heard: "${heard}"! Great job!`);
+        };
+        reco.onerror = () => {
+          showToast("Mic didn't catch that. Tap 'Say This' to continue!");
+        };
+      } catch (err) {
+        showToast("Mic permission needed or not supported.");
+      }
+    }
+
+    // 3. Run Immediately
+    renderScenarios();
+    renderPhrases(phrases);
+  </script>
+</body>
+</html>
